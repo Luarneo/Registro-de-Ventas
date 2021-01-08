@@ -1,0 +1,136 @@
+﻿@model FrontVentasUsuarioFinal.Models.CotizacionViewModel
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Cotizacion</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="container">
+
+        <div class="row"><label>&nbsp; </label></div>
+        <h2 style="text-align: center">Cotización</h2>
+        <div class="row"><label>&nbsp; </label></div>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row">
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-3" })
+
+                @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control col-md-1" } })
+                @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.IdEstatus, htmlAttributes: new { @class = "control-label col-md-3" })
+
+                @*@Html.DropDownListFor(model => model.IdEstatus, new SelectList(ViewBag.ListaEstatus, "IdEstatus", "NombreEstatus",3), "Selecciona una opción", new { @class = "form-control col-md-1", @readonly = "readonly" })*@
+                @*@Html.Editor("Pendiente", "Pendiente", new { htmlAttributes = new { @class = "form-control col-md-1" } })*@
+                @Html.TextBox("Pendiente", "Pendiente", new { @class = "form-control col-md-1", @readonly = "readonly" })
+                @*@Html.HiddenFor(model => model.IdEstatus, 3)*@
+
+                
+                @Html.ValidationMessageFor(model => model.IdEstatus, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.IdSucursal, htmlAttributes: new { @class = "control-label col-md-3" })
+
+                @Html.DropDownListFor(model => model.IdSucursal, new SelectList(ViewBag.ListaSucursales, "IdSucursal", "NombreSucursal"), "Selecciona una opción", new { @class = "form-control col-md-1" })
+                @Html.ValidationMessageFor(model => model.IdSucursal, "", new { @class = "text-danger" })
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.DescripcionCotizacion, htmlAttributes: new { @class = "control-label col-md-3" })
+
+                @Html.EditorFor(model => model.DescripcionCotizacion, new { htmlAttributes = new { @class = "form-control col-md-1" } })
+                @Html.ValidationMessageFor(model => model.DescripcionCotizacion, "", new { @class = "text-danger" })
+
+            </div>
+
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.IdCliente, htmlAttributes: new { @class = "control-label col-md-3" })
+
+                @Html.DropDownListFor(model => model.IdCliente, new SelectList(ViewBag.Clientes, "IdCliente", "NombreCliente"), "Selecciona una opción", new { @class = "form-control col-md-1" })
+                @Html.ValidationMessageFor(model => model.IdCliente, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.Importe, htmlAttributes: new { @class = "control-label col-md-3" })
+
+                @Html.EditorFor(model => model.Importe, new { htmlAttributes = new { @class = "form-control col-md-1" } })
+                @Html.ValidationMessageFor(model => model.Importe, "", new { @class = "text-danger" })
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label col-md-3" })
+          
+                    @Html.TextAreaFor(model => model.Observaciones, new { @class = "form-control ", @cols = 30, @rows = 3 })
+                    @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
+                
+            </div>
+
+
+        </div>
+
+        <div class="row"> &nbsp;  </div>
+        <div class="row">
+
+            <div class="form-group col-md-4">
+
+            </div>
+
+            <div class="form-group col-md-3">
+
+                <input type="submit" value="Guardar" class="btn btn-success col-md-4" onclick="return ConfirmSave()" />
+
+            </div>
+
+            <div class="form-group col-md-3">
+
+                <a id="BtnCancelarCotizacion" class="btn btn-danger" href="\Cotizaciones\" onclick="return ConfirmCancel()"> Cancelar </a>
+            </div>
+
+            <div class="form-group col-md-2">
+
+            </div>
+
+        </div>
+
+      
+    </div>
+    }
+
+</body>
+</html>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/JSCotizaciones.js"></script>
+}

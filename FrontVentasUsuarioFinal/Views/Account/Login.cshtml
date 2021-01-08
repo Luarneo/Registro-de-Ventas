@@ -1,0 +1,115 @@
+﻿@using FrontVentasUsuarioFinal.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Iniciar sesión";
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        body {
+            background-image: radial-gradient(circle at 20.07% 70.96%, #c7d9ff 0, #6c90d8 50%, #004fa4 100%);
+        }
+
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+
+        .row {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="Mensaje">
+        @if (TempData["Mensaje"] != null)
+        {
+            var confirmacion = TempData["Mensaje"] as KeyValuePair<string, string>?;
+            @Html.Partial("_Alerta", new KeyValuePair<string, string>(confirmacion.Value.Key, confirmacion.Value.Value))
+        }
+    </div>
+    <div class="row"><label>&nbsp; </label></div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 panel panel-default" style="margin-top: 1.0cm;">
+            <div class="panel-body">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form", id = "loginForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <div col-md-12>
+                            <h2 class="text-center">
+                                Sistema de Venta Usuario Final
+                            </h2>
+                        </div>
+
+                        @*<div col-md-12>
+                            <h4 class="text-center">
+                                Inicio de sesión
+                            </h4>
+                        </div>*@
+                    </div>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group col-sm-2">
+                    </div>
+
+                    <div class="form-group col-sm-8">
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            @*<span class="input-group-addon"><i class="fas fa-user"></i></span>*@
+                            @Html.TextBoxFor(m => m.Usuario, new { @class = "form-control", @placeholder = "Usuario" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Usuario, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="row"><label>&nbsp; </label></div>
+                    <div class="form-group col-sm-2">
+                    </div>
+                    <div class="form-group col-sm-8">
+                        <div class="input-group">
+
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></span>
+                            @*<span class="input-group-addon"> <i class="fas fa-key"></i></span>*@
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Contraseña" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="row"><label>&nbsp; </label></div>
+                    <div class="row"><label>&nbsp; </label></div>
+
+                    <div class="form-group col-sm-12">
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-8">
+                            <button type="submit" class="btn btn-block btn-lg btn-primary"><i class="fas fa-sign-in-alt"></i>&nbsp;Iniciar sesión</button>
+                        </div>
+                        <div class="col-md-2">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <hr />
+                    </div>
+                    <span class="text-center">
+                     <p class="text-muted">&copy; @DateTime.Now.Year - Soluciones Servinext </p>
+                    </span>
+                }
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+
+</body>
+</html>

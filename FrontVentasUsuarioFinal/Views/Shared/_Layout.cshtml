@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/jquery-ui.css")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a id="ImagenCotizacion" href="\">
+                    <img src="~/Content/logo_servinext.jpg" width="180"/>
+                </a>
+                @*<img src="~/Content/logo_servinext.jpg" width="180" />*@
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+            <div class="navbar-collapse collapse">
+                @*<ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Cotizaciones", "Index", "Cotizaciones")</li>
+                    <li>@Html.ActionLink("Facturación", "Index", "Facturacion")</li>                    
+                </ul>*@
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div id="AlertaDiv">
+        <div class="row">&nbsp; </div>
+        @if (TempData["Mensaje"] != null)
+        {
+            var confirmacion = TempData["Mensaje"] as KeyValuePair<string, string>?;
+            @Html.Partial("_Alerta", new KeyValuePair<string, string>(confirmacion.Value.Key, confirmacion.Value.Value))
+        }
+    </div>
+    <div id="MensajeError" style="position: fixed; z-index: 1; " class="row col-md-12">   </div>
+    <div class="container body-content">
+        @RenderBody()
+        
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Departamento de supervisión e implementación de sistemas</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/jquery-ui.js")
+    @Scripts.Render("~/Scripts/DatePickerReady.js")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

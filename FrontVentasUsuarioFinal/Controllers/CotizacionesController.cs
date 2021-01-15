@@ -207,7 +207,7 @@ namespace FrontVentasUsuarioFinal.Controllers
             };
         }
 
-        //public  void CrearExcel(IEnumerable<CotizacionViewModel> CotizacionList)
+      
         public async Task<ActionResult> CrearExcel(string FechaInicial, string FechaFinal, int Sucursal, int Estatus, string Cotizacion)
         {
                 
@@ -219,45 +219,51 @@ namespace FrontVentasUsuarioFinal.Controllers
 
                 CotizacionUnica = await _ServicioCotizaciones.ObtenerCotizacionUnica(Cotizacion);
 
+                ExcelPackage ep = new ExcelPackage();
 
-                var filex = new System.IO.FileInfo(ConfigurationManager.AppSettings["PathCotizaciones"].ToString());
+                ep.Workbook.Worksheets.Add("Cotizaciones");
 
+                ExcelWorksheet ew1 = ep.Workbook.Worksheets[1];
 
-                using (ExcelPackage pck = new ExcelPackage(filex))
-                {
-                    var ws = pck.Workbook.Worksheets[1];
+                ew1.Cells["A1"].Value = "Fecha";
+                ew1.Cells["A1"].Style.Font.Bold = true;           
+                ew1.Cells["B1"].Value = "Sucursal";
+                ew1.Cells["B1"].Style.Font.Bold = true;
+                ew1.Cells["C1"].Value = "Cliente";
+                ew1.Cells["C1"].Style.Font.Bold = true;
+                ew1.Cells["D1"].Value = "Descripción";
+                ew1.Cells["D1"].Style.Font.Bold = true;
+                ew1.Cells["E1"].Value = "Estatus";
+                ew1.Cells["E1"].Style.Font.Bold = true;
 
+                int rowStart = 2;
 
-                    ws.Cells["A1"].Value = "Fecha";
-                    ws.Cells["B1"].Value = "Sucursal";
-                    ws.Cells["C1"].Value = "Cliente";
-                    ws.Cells["D1"].Value = "Descripción";
-                    ws.Cells["E1"].Value = "Estatus";
+                ew1.Cells[string.Format("A{0}", rowStart)].Value = CotizacionUnica.Fecha;
+                ew1.Cells[string.Format("B{0}", rowStart)].Value = CotizacionUnica.Sucursal;
+                ew1.Cells[string.Format("C{0}", rowStart)].Value = CotizacionUnica.Cliente;
+                ew1.Cells[string.Format("D{0}", rowStart)].Value = CotizacionUnica.DescripcionCotizacion;
+                ew1.Cells[string.Format("E{0}", rowStart)].Value = CotizacionUnica.Estatus;
 
+                ew1.Column(1).AutoFit();
+                ew1.Column(2).AutoFit();
+                ew1.Column(3).AutoFit();
+                ew1.Column(4).AutoFit();
+                ew1.Column(5).AutoFit();
 
+                byte[] bin = ep.GetAsByteArray();
 
-                    int rowStart = 2;
-
-
-                    ws.Cells[string.Format("A{0}", rowStart)].Value = CotizacionUnica.Fecha;
-                    ws.Cells[string.Format("B{0}", rowStart)].Value = CotizacionUnica.Sucursal;
-                    ws.Cells[string.Format("C{0}", rowStart)].Value = CotizacionUnica.Cliente;
-                    ws.Cells[string.Format("D{0}", rowStart)].Value = CotizacionUnica.DescripcionCotizacion;
-                    ws.Cells[string.Format("E{0}", rowStart)].Value = CotizacionUnica.Estatus;
-                                         
-                    byte[] bin = pck.GetAsByteArray();
-
-                    Response.ClearHeaders();
-                    Response.Clear();
-                    Response.Buffer = true;
-                    Response.ContentType = "application/vnd.openxmlformatsofficedocument.spreadsheetml.sheet";
-                    Response.AddHeader("content-length", bin.Length.ToString());
-                    Response.AddHeader("content-disposition", "attachment; filename=\"Cotizaciones.xlsx\"");
-                    Response.OutputStream.Write(bin, 0, bin.Length);
-                    Response.Flush();
-                }
-
+                Response.ClearHeaders();
+                Response.Clear();
+                Response.Buffer = true;
+                Response.ContentType = "application/vnd.openxmlformatsofficedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-length", bin.Length.ToString());
+                Response.AddHeader("content-disposition", "attachment; filename=\"Cotizaciones.xlsx\"");
+                Response.OutputStream.Write(bin, 0, bin.Length);
+                Response.Flush();
+                                
             }
+
+            
             else
             {
                 DateTime FechaInicialConv = Convert.ToDateTime(FechaInicial);
@@ -274,40 +280,52 @@ namespace FrontVentasUsuarioFinal.Controllers
                     CotizacionList = await _ServicioCotizaciones.ListarCotizacionesFiltros(FechaInicialConv, FechaFinalConv, Sucursal, Estatus);
                 }
 
-                var filex = new System.IO.FileInfo(ConfigurationManager.AppSettings["PathCotizaciones"].ToString());
-
-
-                using (ExcelPackage pck = new ExcelPackage(filex))
-                {
-                    var ws = pck.Workbook.Worksheets[1];
-
-
-                    ws.Cells["A1"].Value = "Fecha";
-                    ws.Cells["B1"].Value = "Sucursal";
-                    ws.Cells["C1"].Value = "Cliente";
-                    ws.Cells["D1"].Value = "Descripción";
-                    ws.Cells["E1"].Value = "Estatus";
 
 
 
-                    int rowStart = 2;
+
+                ExcelPackage ep = new ExcelPackage();
+
+                ep.Workbook.Worksheets.Add("Cotizaciones");
+
+                ExcelWorksheet ew1 = ep.Workbook.Worksheets[1];
+
+                ew1.Cells["A1"].Value = "Fecha";
+                ew1.Cells["A1"].Style.Font.Bold = true;
+                ew1.Cells["B1"].Value = "Sucursal";
+                ew1.Cells["B1"].Style.Font.Bold = true;
+                ew1.Cells["C1"].Value = "Cliente";
+                ew1.Cells["C1"].Style.Font.Bold = true;
+                ew1.Cells["D1"].Value = "Descripción";
+                ew1.Cells["D1"].Style.Font.Bold = true;
+                ew1.Cells["E1"].Value = "Estatus";
+                ew1.Cells["E1"].Style.Font.Bold = true;
+
+
+
+                int rowStart = 2;
 
                     foreach (var item in CotizacionList)
                     {
-                        ws.Cells[string.Format("A{0}", rowStart)].Value = item.Fecha;
-                        ws.Cells[string.Format("B{0}", rowStart)].Value = item.Sucursal;
-                        ws.Cells[string.Format("C{0}", rowStart)].Value = item.Cliente;
-                        ws.Cells[string.Format("D{0}", rowStart)].Value = item.DescripcionCotizacion;
-                        ws.Cells[string.Format("E{0}", rowStart)].Value = item.Estatus;
+                    ew1.Cells[string.Format("A{0}", rowStart)].Value = item.Fecha;
+                    ew1.Cells[string.Format("B{0}", rowStart)].Value = item.Sucursal;
+                    ew1.Cells[string.Format("C{0}", rowStart)].Value = item.Cliente;
+                    ew1.Cells[string.Format("D{0}", rowStart)].Value = item.DescripcionCotizacion;
+                    ew1.Cells[string.Format("E{0}", rowStart)].Value = item.Estatus;
 
                         rowStart++;
 
                     }
 
+                ew1.Column(1).AutoFit();
+                ew1.Column(2).AutoFit();
+                ew1.Column(3).AutoFit();
+                ew1.Column(4).AutoFit();
+                ew1.Column(5).AutoFit();
 
-                    byte[] bin = pck.GetAsByteArray();
+                byte[] bin = ep.GetAsByteArray();
 
-                    Response.ClearHeaders();
+                Response.ClearHeaders();
                     Response.Clear();
                     Response.Buffer = true;
                     Response.ContentType = "application/vnd.openxmlformatsofficedocument.spreadsheetml.sheet";
@@ -315,12 +333,13 @@ namespace FrontVentasUsuarioFinal.Controllers
                     Response.AddHeader("content-disposition", "attachment; filename=\"Cotizaciones.xlsx\"");
                     Response.OutputStream.Write(bin, 0, bin.Length);
                     Response.Flush();
-                }
+                
 
             }           
 
             return RedirectToAction("Index");
         }
 
+        
     }
 }

@@ -4,7 +4,13 @@
     $('#BtnImportarExcel').hide();
     $('#IdCliente').attr("required", false);
 
-  
+
+    
+    $("#Fecha").on('paste', function (e) {
+            e.preventDefault();
+            
+    })
+
  
 
     $(function () {
@@ -173,6 +179,7 @@ function LlenarTablaCotizaciones(coleccion) {
                 coleccion[i].Cliente,
                 coleccion[i].DescripcionCotizacion,
                 coleccion[i].Estatus,
+                coleccion[i].Importe,
                 //'<a href=Cotizaciones/VerCotizacion?CotizacionId=' + coleccion[i].IdCotizacion + ' class="btn btn-info BtnVerCotizacion"><font face="Open Sans, Helvetica, Arial"> Ver </font></a>',
                 '<button type="button" class="btn btn-info BtnVerCotizacion" id=' + coleccion[i].IdCotizacion + ' > Ver</button>',
                 '<button type="button" class="btn btn-primary BtnPorCotizacion" id=' + coleccion[i].IdCotizacion + ' > Actualizar</button>',
@@ -186,6 +193,7 @@ function LlenarTablaCotizaciones(coleccion) {
                 coleccion[i].Cliente,
                 coleccion[i].DescripcionCotizacion,
                 coleccion[i].Estatus,
+                coleccion[i].Importe,
                 //'<a href=Cotizaciones/VerCotizacion?CotizacionId=' + coleccion[i].IdCotizacion + ' class="btn btn-info BtnVerCotizacion"><font face="Open Sans, Helvetica, Arial"> Ver </font></a>',
                 '<button type="button" class="btn btn-info BtnVerCotizacion" id=' + coleccion[i].IdCotizacion + ' > Ver</button>',
                 '<button type="button" class="btn btn-primary BtnPorCotizacion" id=' + coleccion[i].IdCotizacion + ' disabled> Actualizar</button>',
@@ -210,6 +218,7 @@ function LlenarTablaCotizacionesUnico(coleccion) {
             coleccion.Cliente,
             coleccion.DescripcionCotizacion,
             coleccion.Estatus,
+            coleccion.Importe,
             //'<a href=Cotizaciones/VerCotizacion?CotizacionId=' + coleccion.IdCotizacion + ' class="btn btn-info BtnVerCotizacion"><font face="Open Sans, Helvetica, Arial"> Ver </font></a>',
             '<button type="button" class="btn btn-info BtnVerCotizacion" id=' + coleccion.IdCotizacion + ' > Ver</button>',
             '<button type="button" class="btn btn-primary BtnPorCotizacion" id=' + coleccion.IdCotizacion + ' > Actualizar</button>',
@@ -474,5 +483,15 @@ $('#ModalActualizar').on('change', '#IdEstatus', function () {
     }
 
 });
+
+$(function () {
+    $('#Fecha').attr('autocomplete', 'off');
+    $('#DescripcionCotizacion').attr('autocomplete', 'off');
+    $('#Importe').attr('autocomplete', 'off');
+
+}); 
+
+
+
 
 

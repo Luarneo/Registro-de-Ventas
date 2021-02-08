@@ -23,7 +23,7 @@ namespace APIVentasUsuarioFinal.Models
 
         public string Cliente { get; set; }
 
-        public double Importe { get; set; }
+        public decimal Importe { get; set; }
 
         public int IdEstatus { get; set; }
 
@@ -32,5 +32,7 @@ namespace APIVentasUsuarioFinal.Models
         public string Observaciones { get; set; }
 
         public string Usuario { get; set; }
+
+        public string MotivoRechazo { get; set; }
     }
 }

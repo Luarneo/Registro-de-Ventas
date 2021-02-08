@@ -81,7 +81,7 @@ namespace APIVentasUsuarioFinal.Repositorios
                 ElemCotizacion.DescripcionCotizacion = dt.Rows[i]["descripcion_cotizacion"].ToString();
                 ElemCotizacion.IdCliente = Convert.ToInt32(dt.Rows[i]["cliente_id"]);
                 ElemCotizacion.Cliente = dt.Rows[i]["Nombre_cliente"].ToString();
-                ElemCotizacion.Importe = Convert.ToInt64(dt.Rows[i]["importe"]);
+                ElemCotizacion.Importe = Convert.ToDecimal(dt.Rows[i]["importe"]);
                 ElemCotizacion.IdEstatus = Convert.ToInt32(dt.Rows[i]["estatus"]);
                 ElemCotizacion.Estatus = dt.Rows[i]["nombre_estatus"].ToString();
                 ElemCotizacion.Observaciones = dt.Rows[i]["observaciones"].ToString();
@@ -122,7 +122,7 @@ namespace APIVentasUsuarioFinal.Repositorios
                 ElemCotizacion.DescripcionCotizacion = dt.Rows[i]["descripcion_cotizacion"].ToString();
                 ElemCotizacion.IdCliente = Convert.ToInt32(dt.Rows[i]["cliente_id"]);
                 ElemCotizacion.Cliente = dt.Rows[i]["Nombre_cliente"].ToString();
-                ElemCotizacion.Importe = Convert.ToInt64(dt.Rows[i]["importe"]);
+                ElemCotizacion.Importe = Convert.ToDecimal(dt.Rows[i]["importe"]);
                 ElemCotizacion.IdEstatus = Convert.ToInt32(dt.Rows[i]["estatus"]);
                 ElemCotizacion.Estatus = dt.Rows[i]["nombre_estatus"].ToString();
                 ElemCotizacion.Observaciones = dt.Rows[i]["observaciones"].ToString();
@@ -191,11 +191,12 @@ namespace APIVentasUsuarioFinal.Repositorios
                 ElemCotizacion.DescripcionCotizacion = dt.Rows[0]["descripcion_cotizacion"].ToString();
                 ElemCotizacion.IdCliente = Convert.ToInt32(dt.Rows[0]["cliente_id"]);
                 ElemCotizacion.Cliente = dt.Rows[0]["Nombre_cliente"].ToString();
-                ElemCotizacion.Importe = Convert.ToInt64(dt.Rows[0]["importe"]);
+                ElemCotizacion.Importe = Convert.ToDecimal(dt.Rows[0]["importe"]);
                 ElemCotizacion.IdEstatus = Convert.ToInt32(dt.Rows[0]["estatus"]);
                 ElemCotizacion.Estatus = dt.Rows[0]["nombre_estatus"].ToString();
                 ElemCotizacion.Observaciones = dt.Rows[0]["observaciones"].ToString();
-                        
+                ElemCotizacion.MotivoRechazo = dt.Rows[0]["motivo_rechazo"].ToString();
+
 
             return ElemCotizacion;
         }
@@ -226,7 +227,7 @@ namespace APIVentasUsuarioFinal.Repositorios
                 ElemCotizacion.DescripcionCotizacion = dt.Rows[0]["descripcion_cotizacion"].ToString();
                 ElemCotizacion.IdCliente = Convert.ToInt32(dt.Rows[0]["cliente_id"]);
                 ElemCotizacion.Cliente = dt.Rows[0]["Nombre_cliente"].ToString();
-                ElemCotizacion.Importe = Convert.ToInt64(dt.Rows[0]["importe"]);
+                ElemCotizacion.Importe = Convert.ToDecimal(dt.Rows[0]["importe"]);
                 ElemCotizacion.IdEstatus = Convert.ToInt32(dt.Rows[0]["estatus"]);
                 ElemCotizacion.Estatus = dt.Rows[0]["nombre_estatus"].ToString();
                 ElemCotizacion.Observaciones = dt.Rows[0]["observaciones"].ToString();

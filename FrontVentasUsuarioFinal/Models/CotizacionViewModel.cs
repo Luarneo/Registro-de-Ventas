@@ -10,7 +10,7 @@ namespace FrontVentasUsuarioFinal.Models
         //[DataType(DataType.Date)]
         //public DateTime Fecha { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es requerido")]
+        [Required(ErrorMessage = "El campo {0} es requerido")]       
         public string Fecha { get; set; }
 
         [DisplayName("Sucursal")]
@@ -30,7 +30,7 @@ namespace FrontVentasUsuarioFinal.Models
 
         [DisplayFormat(DataFormatString = "{0:$#,#}")]
         [Required(ErrorMessage = "El campo {0} es requerido")]
-        public double Importe { get; set; }
+        public decimal Importe { get; set; }
 
         [DisplayName("Estatus")]
         [Required(ErrorMessage = "El campo Estatus es requerido")]
@@ -38,7 +38,7 @@ namespace FrontVentasUsuarioFinal.Models
 
         public string Estatus { get; set; }
 
-        [DisplayName("Motivo rechazo")]
+        [DisplayName("Motivo")]
         public string MotivoRechazo { get; set; }
 
         public string Observaciones { get; set; }

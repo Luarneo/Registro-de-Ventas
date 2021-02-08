@@ -110,7 +110,7 @@ namespace FrontVentasUsuarioFinal.Controllers
 
             if (Cotizacion.IdCliente is null)
             {
-                Cotizacion.IdCliente = 1;
+                Cotizacion.IdCliente = 18;
             }
 
             Cotizacion.IdEstatus = 3;
